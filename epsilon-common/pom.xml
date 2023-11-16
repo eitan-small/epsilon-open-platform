@@ -16,5 +16,6 @@
 
     <modules>
         <module>epsilon-common-core</module>
+        <module>epsilon-common-redis</module>
     </modules>
 </project>

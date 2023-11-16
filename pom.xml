@@ -111,7 +111,13 @@
             <!-- 核心模块 -->
             <dependency>
                 <groupId>com.epsilon</groupId>
-                <artifactId>epsilon-common</artifactId>
+                <artifactId>epsilon-common-core</artifactId>
+                <version>${epsilon.version}</version>
+            </dependency>
+            <!-- epsilon-common-redis -->
+            <dependency>
+                <groupId>com.epsilon</groupId>
+                <artifactId>epsilon-common-redis</artifactId>
                 <version>${epsilon.version}</version>
             </dependency>
 
