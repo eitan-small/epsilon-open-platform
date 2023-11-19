@@ -9,21 +9,26 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>epsilon-common-redis</artifactId>
+    <artifactId>epsilon-common-mybatis</artifactId>
 
     <name>${project.artifactId}</name>
-    <description>epsilon-common-redis缓存模块</description>
+    <description>epsilon-common-mybatis数据库模块</description>
 
     <dependencies>
-        <!-- SpringBoot Boot Redis -->
+        <!-- DB 相关 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
 
+        <!-- lombok -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
         <!-- epsilon-common-core -->
@@ -32,4 +37,5 @@
             <artifactId>epsilon-common-core</artifactId>
         </dependency>
     </dependencies>
+
 </project>

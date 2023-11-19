@@ -12,10 +12,13 @@
     <artifactId>epsilon-common</artifactId>
     <packaging>pom</packaging>
 
+    <name>${project.artifactId}</name>
     <description>epsilon-common通用模块</description>
 
     <modules>
         <module>epsilon-common-core</module>
         <module>epsilon-common-redis</module>
+        <module>epsilon-common-mybatis</module>
+        <module>epsilon-common-web</module>
     </modules>
 </project>

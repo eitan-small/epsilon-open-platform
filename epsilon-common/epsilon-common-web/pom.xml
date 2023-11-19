@@ -9,21 +9,22 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>epsilon-common-redis</artifactId>
+    <artifactId>epsilon-common-web</artifactId>
 
     <name>${project.artifactId}</name>
-    <description>epsilon-common-redis缓存模块</description>
+    <description>epsilon-common-web模块</description>
 
     <dependencies>
-        <!-- SpringBoot Boot Redis -->
+        <!-- Web 相关 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- lombok -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
         <!-- epsilon-common-core -->
