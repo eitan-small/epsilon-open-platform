@@ -11,15 +11,18 @@
 
     <artifactId>epsilon-common-redis</artifactId>
 
-    <description>
-        epsilon-common-redis缓存模块
-    </description>
+    <description>epsilon-common-redis缓存模块</description>
 
     <dependencies>
         <!-- SpringBoot Boot Redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
         </dependency>
 
         <!-- epsilon-common-core -->

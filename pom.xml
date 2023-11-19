@@ -13,6 +13,7 @@
     <description>Epsilon开放平台</description>
     <modules>
         <module>epsilon-common</module>
+        <module>epsilon-gateway</module>
     </modules>
 
     <properties>

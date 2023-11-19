@@ -1,0 +1,46 @@
+# Tomcat
+server:
+  port: 8080
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: epsilon-gateway
+  profiles:
+    # 环境配置
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        namespace: 6fccce6e-20e4-4235-9080-01bd86f1430c
+        group: DEFAULT_GROUP
+        server-addr: 192.168.0.101:8848
+      config:
+        # 配置所属命名空间的id
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        group: ${spring.cloud.nacos.discovery.group}
+        # 后缀名
+        file-extension: yaml
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        # 配置自动刷新
+        refresh-enabled: true
+        # 启用远程同步配置
+        enable-remote-sync-config: true
+  config:
+    import:
+      - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}
+      - optional:nacos:${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+      - optional:nacos:gateway-route-${spring.profiles.active}.json
+  data:
+    redis:
+      host: 192.168.0.102
+      port: 6379
+      password: redis
+      database: 0
+      lettuce:
+        pool:
+          enabled: true
+          max-idle: 16
+          max-active: 32
+          min-idle: 8
