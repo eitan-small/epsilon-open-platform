@@ -46,6 +46,14 @@ public class SecurityContextHolder {
         set(SecurityConstants.DETAILS_USER_ID, account);
     }
 
+    public static String getUserName() {
+        return get(SecurityConstants.DETAILS_USERNAME);
+    }
+
+    public static void setUserName(String username) {
+        set(SecurityConstants.DETAILS_USERNAME, username);
+    }
+
     public static void remove() {
         THREAD_LOCAL.remove();
     }

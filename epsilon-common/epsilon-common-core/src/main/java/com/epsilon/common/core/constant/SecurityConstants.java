@@ -24,23 +24,4 @@ public class SecurityConstants {
      */
     public static final String FROM_SOURCE = "from-source";
 
-    /**
-     * 内部请求
-     */
-    public static final String INNER = "inner";
-
-    /**
-     * 用户标识
-     */
-    public static final String USER_KEY = "user_key";
-
-    /**
-     * 登录用户
-     */
-    public static final String LOGIN_USER = "login_user";
-
-    /**
-     * 角色权限
-     */
-    public static final String ROLE_PERMISSION = "role_permission";
 }

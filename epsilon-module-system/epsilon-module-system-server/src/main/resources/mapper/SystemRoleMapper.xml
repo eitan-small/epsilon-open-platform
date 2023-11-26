@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.epsilon.module.system.mapper.SystemRoleMapper">
+
+    <select id="getRolesByUserId" resultType="java.lang.String">
+        SELECT
+            *
+        FROM
+            system_user_role a
+            LEFT JOIN system_role b ON a.role_id = b.id
+        WHERE
+            a.user_id = #{userId}
+            AND a.deleted = '0'
+            AND b.`status` = '0'
+            AND b.deleted = '0'
+    </select>
+</mapper>
