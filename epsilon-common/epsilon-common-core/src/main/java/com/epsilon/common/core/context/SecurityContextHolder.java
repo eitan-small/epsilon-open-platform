@@ -38,8 +38,8 @@ public class SecurityContextHolder {
         return map;
     }
 
-    public static Long getUserId() {
-        return Convert.toLong(get(SecurityConstants.DETAILS_USER_ID), 0L);
+    public static Integer getUserId() {
+        return Convert.toInt(get(SecurityConstants.DETAILS_USER_ID), 0);
     }
 
     public static void setUserId(String account) {

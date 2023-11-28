@@ -43,6 +43,13 @@ public class SystemUserController {
         return CommonResult.success(authLoginRespVO);
     }
 
+    @PostMapping("/logout")
+    public CommonResult logout() {
+        Integer userId = SecurityContextHolder.getUserId();
+        systemUserService.logoutByUserId(userId);
+        return CommonResult.success();
+    }
+
     @PostMapping("/info")
     public CommonResult info() {
         SystemUser systemUser = systemUserService.getUserByUsername(SecurityContextHolder.getUserName());

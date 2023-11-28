@@ -24,7 +24,7 @@ public class DefaultEntityFieldHandler implements MetaObjectHandler {
                 baseEntity.setUpdateTime(current);
             }
 
-            Long userId = SecurityContextHolder.getUserId();
+            Integer userId = SecurityContextHolder.getUserId();
             // 当前登录用户不为空，创建人为空，则当前登录用户为创建人
             if (Objects.nonNull(userId) && Objects.isNull(baseEntity.getCreator())) {
                 baseEntity.setCreator(userId.toString());
@@ -46,7 +46,7 @@ public class DefaultEntityFieldHandler implements MetaObjectHandler {
 
         // 当前登录用户不为空，更新人为空，则当前登录用户为更新人
         Object modifier = getFieldValByName("updater", metaObject);
-        Long userId = SecurityContextHolder.getUserId();
+        Integer userId = SecurityContextHolder.getUserId();
         if (Objects.nonNull(userId) && Objects.isNull(modifier)) {
             setFieldValByName("updater", userId.toString(), metaObject);
         }

@@ -85,4 +85,9 @@ public class SystemUserServiceImpl extends ServiceImpl<SystemUserMapper, SystemU
                 .last("LIMIT 1")
                 .one();
     }
+
+    @Override
+    public void logoutByUserId(Integer userId) {
+        cacheService.deleteObject(CacheConstants.SYSTEM_USER_KEY + userId);
+    }
 }
