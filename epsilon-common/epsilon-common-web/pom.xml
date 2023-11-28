@@ -32,5 +32,11 @@
             <groupId>com.epsilon</groupId>
             <artifactId>epsilon-common-core</artifactId>
         </dependency>
+
+        <!-- epsilon-common-redis -->
+        <dependency>
+            <groupId>com.epsilon</groupId>
+            <artifactId>epsilon-common-redis</artifactId>
+        </dependency>
     </dependencies>
 </project>

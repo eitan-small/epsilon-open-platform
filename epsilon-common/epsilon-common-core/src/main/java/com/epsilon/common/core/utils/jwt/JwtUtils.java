@@ -28,21 +28,6 @@ public class JwtUtils {
     }
 
     /**
-     * 从数据声明生成令牌
-     *
-     * @param claims           数据声明
-     * @param expirationMillis 过期时间
-     * @return 令牌
-     */
-    public static String createToken(Map<String, Object> claims, long expirationMillis) {
-        Date now = new Date();
-        Date expiration = new Date(now.getTime() + expirationMillis);
-
-        String token = Jwts.builder().claims(claims).signWith(secretKey).expiration(expiration).compact();
-        return token;
-    }
-
-    /**
      * 从令牌中获取数据声明
      *
      * @param token 令牌

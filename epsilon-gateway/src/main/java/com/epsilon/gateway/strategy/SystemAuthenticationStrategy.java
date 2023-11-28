@@ -1,13 +1,16 @@
 package com.epsilon.gateway.strategy;
 
+import com.epsilon.common.core.constant.CacheConstants;
 import com.epsilon.common.core.constant.SecurityConstants;
 import com.epsilon.common.core.constant.TokenConstants;
 import com.epsilon.common.core.utils.StringUtils;
 import com.epsilon.common.core.utils.jwt.JwtUtils;
 import com.epsilon.common.core.utils.servlet.ServletUtils;
+import com.epsilon.common.redis.service.CacheService;
 import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -19,6 +22,13 @@ import reactor.core.publisher.Mono;
 public class SystemAuthenticationStrategy implements AuthenticationStrategy {
 
     private static final Logger logger = LoggerFactory.getLogger(SystemAuthenticationStrategy.class);
+
+    private final CacheService cacheService;
+
+    @Autowired
+    public SystemAuthenticationStrategy(CacheService cacheService) {
+        this.cacheService = cacheService;
+    }
 
     @Override
     public Mono<Void> authenticate(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -34,14 +44,21 @@ public class SystemAuthenticationStrategy implements AuthenticationStrategy {
         if (claims == null) {
             return unauthorizedResponse(exchange, "令牌已过期或验证不正确！");
         }
-        String userid = JwtUtils.getValue(claims, SecurityConstants.DETAILS_USER_ID);
+
+        // 校验是否过期
+        String userId = JwtUtils.getValue(claims, SecurityConstants.DETAILS_USER_ID);
+        Boolean islogin = cacheService.hasKey(CacheConstants.SYSTEM_USER_KEY + userId);
+        if (!islogin) {
+            return unauthorizedResponse(exchange, "登录状态已过期");
+        }
+
         String username = JwtUtils.getValue(claims, SecurityConstants.DETAILS_USERNAME);
-        if (StringUtils.isEmpty(userid) || StringUtils.isEmpty(username)) {
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(username)) {
             return unauthorizedResponse(exchange, "令牌验证失败");
         }
 
         // 设置用户信息到请求
-        addHeader(mutate, SecurityConstants.DETAILS_USER_ID, userid);
+        addHeader(mutate, SecurityConstants.DETAILS_USER_ID, userId);
         addHeader(mutate, SecurityConstants.DETAILS_USERNAME, username);
         // 内部请求来源参数清除
         removeHeader(mutate, SecurityConstants.FROM_SOURCE);

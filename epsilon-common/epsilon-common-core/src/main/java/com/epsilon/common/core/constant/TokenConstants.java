@@ -18,7 +18,4 @@ public class TokenConstants {
      * 令牌秘钥
      */
     public final static String SECRET = "Bn2SqPIZb1XF0jtrAcR5gLuWp196A8cZ7PPQ5QMyUwpUmRvV6moYWa16UfX7bqPT";
-
-    public final static long EXPIRATION_MILLIS = 24 * 60 * 60 * 1000;
-
 }

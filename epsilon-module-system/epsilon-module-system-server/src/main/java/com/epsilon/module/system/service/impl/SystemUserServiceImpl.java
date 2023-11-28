@@ -2,17 +2,18 @@ package com.epsilon.module.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.epsilon.common.core.constant.CacheConstants;
 import com.epsilon.common.core.constant.SecurityConstants;
 import com.epsilon.common.core.constant.TokenConstants;
 import com.epsilon.common.core.utils.ip.IpUtils;
 import com.epsilon.common.core.utils.jwt.JwtUtils;
+import com.epsilon.common.redis.service.CacheService;
 import com.epsilon.common.web.exception.ServiceException;
 import com.epsilon.module.system.mapper.SystemUserMapper;
 import com.epsilon.module.system.module.entity.SystemUser;
 import com.epsilon.module.system.module.vo.LoginReqVO;
 import com.epsilon.module.system.module.vo.LoginRespVO;
 import com.epsilon.module.system.service.SystemUserService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -34,9 +36,12 @@ import java.util.Objects;
 public class SystemUserServiceImpl extends ServiceImpl<SystemUserMapper, SystemUser> implements SystemUserService {
     private SystemUserMapper systemUserMapper;
 
+    private CacheService cacheService;
+
     @Autowired
-    public SystemUserServiceImpl(SystemUserMapper systemUserMapper) {
+    public SystemUserServiceImpl(SystemUserMapper systemUserMapper, CacheService cacheService) {
         this.systemUserMapper = systemUserMapper;
+        this.cacheService = cacheService;
     }
 
     @Override
@@ -62,10 +67,13 @@ public class SystemUserServiceImpl extends ServiceImpl<SystemUserMapper, SystemU
         claimsMap.put(SecurityConstants.DETAILS_USER_ID, systemUser.getId());
         claimsMap.put(SecurityConstants.DETAILS_USERNAME, systemUser.getUsername());
 
+        // 存入 redis 中
+        cacheService.setCacheObject(CacheConstants.SYSTEM_USER_KEY + systemUser.getId(), username,
+                CacheConstants.EXPIRATION, TimeUnit.SECONDS);
 
         // 返回 authLoginRespVO
         LoginRespVO authLoginRespVO = new LoginRespVO();
-        authLoginRespVO.setToken(JwtUtils.createToken(claimsMap, TokenConstants.EXPIRATION_MILLIS));
+        authLoginRespVO.setToken(JwtUtils.createToken(claimsMap));
 
         return authLoginRespVO;
     }
