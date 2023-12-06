@@ -12,7 +12,7 @@ public class WebAutoConfiguration implements WebMvcConfigurer {
     /**
      * 不需要拦截地址
      */
-    public static final String[] excludeUrls = {"/system/user/login", "/system/user/logout", "/system/user/refresh"};
+    public static final String[] excludeUrls = {"/system/user/login", "/system/user/refresh"};
 
     private CacheService cacheService;
 

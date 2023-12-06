@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.epsilon.module.system.mapper.SystemMenuMapper">
+
+    <select id="selectMenuListByUserId" resultType="com.epsilon.module.system.module.entity.SystemMenu">
+        SELECT a.id,
+               a.`name`,
+               a.type,
+               a.sort,
+               a.parent_id,
+               a.icon,
+               a.component_name,
+               a.status
+        FROM `system_menu` a
+                 LEFT JOIN system_role_menu b ON a.id = b.menu_id
+                 LEFT JOIN system_role c ON b.role_id = c.id
+                 LEFT JOIN system_user_role d ON c.id = d.role_id
+                 LEFT JOIN system_user e ON d.user_id = e.id
+        WHERE a.deleted = 0
+          AND b.deleted = 0
+          AND c.deleted = 0
+          AND d.deleted = 0
+          AND e.deleted = 0
+          AND e.id = #{userId}
+    </select>
+</mapper>

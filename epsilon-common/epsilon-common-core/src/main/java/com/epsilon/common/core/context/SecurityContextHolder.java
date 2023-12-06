@@ -42,8 +42,8 @@ public class SecurityContextHolder {
         return Convert.toInt(get(SecurityConstants.DETAILS_USER_ID), 0);
     }
 
-    public static void setUserId(String account) {
-        set(SecurityConstants.DETAILS_USER_ID, account);
+    public static void setUserId(String userId) {
+        set(SecurityConstants.DETAILS_USER_ID, userId);
     }
 
     public static String getUserName() {
